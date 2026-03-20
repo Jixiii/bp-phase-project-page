@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Academic project page for Controllable Text-to-Motion Generation via Modular Body-Part Phase Control."
+    />
+    <title>Controllable Text-to-Motion Generation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav class="section-nav" aria-label="Section navigation">
+      <a class="section-nav__dot is-active" href="#hero" data-nav-target="hero">
+        <span class="sr-only">Hero</span>
+      </a>
+      <a class="section-nav__dot" href="#abstract" data-nav-target="abstract">
+        <span class="sr-only">Abstract</span>
+      </a>
+      <a class="section-nav__dot" href="#pipeline" data-nav-target="pipeline">
+        <span class="sr-only">Pipeline</span>
+      </a>
+      <a class="section-nav__dot" href="#results" data-nav-target="results">
+        <span class="sr-only">Video Results</span>
+      </a>
+      <a
+        class="section-nav__dot"
+        href="#interactive-demo"
+        data-nav-target="interactive-demo"
+      >
+        <span class="sr-only">Interactive Demo</span>
+      </a>
+      <a class="section-nav__dot" href="#citation" data-nav-target="citation">
+        <span class="sr-only">BibTeX</span>
+      </a>
+    </nav>
+
+    <header class="hero" id="hero">
+      <div class="container hero__content">
+        <h1 class="hero__title">
+          <span class="hero__title-line">Controllable Text-to-Motion Generation</span>
+          <span class="hero__title-line">via Modular Body-Part Phase Control</span>
+        </h1>
+
+        <p class="hero__authors">
+          <span class="author-name">Minyue Dai<sup>1</sup></span>
+          <span>·</span>
+          <span class="author-name">Ke Fan<sup>2</sup></span>
+          <span>·</span>
+          <span class="author-name">Anyi Rao<sup>3</sup></span>
+          <span>·</span>
+          <span class="author-name">Jingbo Wang<sup>4</sup></span>
+          <span>·</span>
+          <span class="author-name">Bo Dai<sup>5</sup></span>
+        </p>
+
+        <div class="hero__affiliations">
+          <!-- You can adjust the institution numbering relationship here later -->
+          <p><sup>1</sup> Fudan University</p>
+          <p><sup>2</sup> Shanghai Jiao Tong University</p>
+          <p><sup>3</sup> HKUST</p>
+          <p><sup>4</sup> Shanghai AI Laboratory</p>
+          <p><sup>5</sup> The University of Hong Kong</p>
+        </div>
+
+        <div class="hero__actions">
+          <a class="action-button" href="#" target="_blank" rel="noreferrer">Paper</a>
+          <a class="action-button" href="#" target="_blank" rel="noreferrer">Code</a>
+          <a class="action-button" href="#" target="_blank" rel="noreferrer">Video</a>
+          <a class="action-button" href="#citation">BibTeX</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="section" id="abstract">
+        <div class="container narrow">
+          <div class="section-heading">
+            <p class="section-heading__kicker">Overview</p>
+            <h2>Abstract</h2>
+          </div>
+          <div class="card prose">
+            <p>
+              Text-to-motion (T2M) generation is becoming a practical tool for animation and interactive avatars.
+              However, modifying specific body parts while maintaining overall motion coherence remains challenging.
+              Existing methods typically rely on cumbersome, high-dimensional joint constraints (e.g., trajectories), which hinder user-friendly, iterative refinement.
+              To address this, we propose <strong>Modular Body-Part Phase Control</strong>, a plug-and-play framework enabling structured, localized editing via a compact, scalar-based phase interface.
+              By modeling body-part latent motion channels as sinusoidal phase signals—characterized by amplitude, frequency, phase shift, and offset—we extract interpretable codes that capture part-specific dynamics.
+              A modular <strong>Phase ControlNet</strong> branch then injects this signal via residual feature modulation, seamlessly decoupling control from the generative backbone.
+              Experiments on both diffusion- and flow-based models demonstrate that our approach provides predictable and fine-grained control over motion magnitude, speed, and timing.
+              It preserves global motion coherence and offers a practical paradigm for controllable T2M generation.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--alt" id="pipeline">
+        <div class="container">
+          <div class="section-heading">
+            <p class="section-heading__kicker">Method</p>
+            <h2>Pipeline / Method Overview</h2>
+          </div>
+
+          <figure class="media-panel">
+            <div class="image-frame">
+              <img
+                id="pipeline-image"
+                src="assets/pipeline.jpg"
+                alt="Pipeline overview figure"
+              />
+              <div class="image-fallback">
+                <strong>Pipeline Figure Placeholder</strong>
+                <span>
+                  Add your method overview image at
+                  <code>assets/pipeline.jpg</code>
+                </span>
+              </div>
+            </div>
+            <figcaption class="media-caption">
+              Our framework augments a pretrained latent-space text-to-motion
+              generator with a modular body-part phase control branch. A frozen
+              body-part phase extractor predicts per-part periodic parameters
+              including amplitude, frequency, phase shift, and offset from a
+              reference motion. These structured controls are encoded into a
+              phase manifold and injected into the backbone through a Phase
+              ControlNet, enabling localized edits while preserving overall
+              motion coherence.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="section" id="results">
+        <div class="container">
+          <div class="section-heading">
+            <p class="section-heading__kicker">Experiments</p>
+            <h2>Video Results</h2>
+          </div>
+
+          <div class="results-group">
+            <div class="results-intro card prose">
+              <p>
+                We visualize localized body-part control results produced by our
+                modular phase interface. The three groups below highlight how
+                scalar edits to amplitude, frequency, and phase shift yield
+                predictable changes in motion magnitude, execution pace, and
+                temporal alignment while keeping the remaining motion coherent.
+              </p>
+            </div>
+
+            <section class="carousel-block" aria-labelledby="amplitude-heading">
+              <div class="carousel-block__header">
+                <div>
+                  <h3 id="amplitude-heading">Amplitude Control</h3>
+                  <p>Body-Part A editing cases showing controllable motion magnitude.</p>
+                </div>
+              </div>
+
+              <div class="carousel-stage">
+                <button class="carousel-arrow carousel-arrow--side" type="button" data-carousel-prev>
+                  <span aria-hidden="true">←</span>
+                  <span class="sr-only">Previous slide</span>
+                </button>
+
+                <div class="carousel" data-carousel>
+                  <div class="carousel__track">
+                    <article class="video-card">
+                      <div class="video-shell">
+                        <video controls loop muted playsinline preload="none" data-autoplay>
+                          <source src="assets/videos/A1.mp4" type="video/mp4" />
+                        </video>
+                      </div>
+                      <p>Localized amplitude scaling increases or reduces the edited part motion range.</p>
+                    </article>
+
+                    <article class="video-card">
+                      <div class="video-shell">
+                        <video controls loop muted playsinline preload="none" data-autoplay>
+                          <source src="assets/videos/A2.mp4" type="video/mp4" />
+                        </video>
+                      </div>
+                      <p>Amplitude control adjusts movement intensity while preserving the global motion pattern.</p>
+                    </article>
+
+                    <article class="video-card">
+                      <div class="video-shell">
+                        <video controls loop muted playsinline preload="none" data-autoplay>
+                          <source src="assets/videos/A3.mp4" type="video/mp4" />
+                        </video>
+                      </div>
+                      <p>Text Prompt: the person is waving at someone with the right hand.</p>
+                    </article>
+
+                    <article class="video-card">
+                      <div class="video-shell">
+                        <video controls loop muted playsinline preload="none" data-autoplay>
+                          <source src="assets/videos/A4.mp4" type="video/mp4" />
+                        </video>
+                      </div>
+                      <p>Motion magnitude changes remain localized to the selected body part.</p>
+                    </article>
+                  </div>
+                </div>
+
+                <button class="carousel-arrow carousel-arrow--side" type="button" data-carousel-next>
+                  <span aria-hidden="true">→</span>
+                  <span class="sr-only">Next slide</span>
+                </button>
+              </div>
+              <div class="carousel-pagination" data-carousel-dots></div>
+            </section>
+
+            <section class="carousel-block" aria-labelledby="frequency-heading">
+              <div class="carousel-block__header">
+                <div>
+                  <h3 id="frequency-heading">Frequency Control</h3>
+                  <p>Body-Part F editing cases showing controllable motion pace.</p>
+                </div>
+              </div>
+
+              <div class="carousel-stage">
+                <button class="carousel-arrow carousel-arrow--side" type="button" data-carousel-prev>
+                  <span aria-hidden="true">←</span>
+                  <span class="sr-only">Previous slide</span>
+                </button>
+
+                <div class="carousel" data-carousel>
+                  <div class="carousel__track">
+                    <article class="video-card">
+                      <div class="video-shell">
+                        <video controls loop muted playsinline preload="none" data-autoplay>
+                          <source src="assets/videos/F1.mp4" type="video/mp4" />
+                        </video>
+                      </div>
+                      <p>Frequency scaling modifies the repetition pace of the edited motion pattern.</p>
+                    </article>
+
+                    <article class="video-card">
+                      <div class="video-shell">
+                        <video controls loop muted playsinline preload="none" data-autoplay>
+                          <source src="assets/videos/F2.mp4" type="video/mp4" />
+                        </video>
+                      </div>
+                      <p>Higher or lower frequency changes timing density without redesigning the whole sequence.</p>
+                    </article>
+
+                    <article class="video-card">
+                      <div class="video-shell">
+                        <video controls loop muted playsinline preload="none" data-autoplay>
+                          <source src="assets/videos/F3.mp4" type="video/mp4" />
+                        </video>
+                      </div>
+                      <p>Body-part motion speed can be adjusted while preserving unedited dynamics.</p>
+                    </article>
+
+                    <article class="video-card">
+                      <div class="video-shell">
+                        <video controls loop muted playsinline preload="none" data-autoplay>
+                          <source src="assets/videos/F4.mp4" type="video/mp4" />
+                        </video>
+                      </div>
+                      <p>Localized pace control offers fine-grained temporal refinement.</p>
+                    </article>
+                  </div>
+                </div>
+
+                <button class="carousel-arrow carousel-arrow--side" type="button" data-carousel-next>
+                  <span aria-hidden="true">→</span>
+                  <span class="sr-only">Next slide</span>
+                </button>
+              </div>
+              <div class="carousel-pagination" data-carousel-dots></div>
+            </section>
+
+            <section class="carousel-block" aria-labelledby="phase-heading">
+              <div class="carousel-block__header">
+                <div>
+                  <h3 id="phase-heading">Phase Shift Control</h3>
+                  <p>Body-Part S editing cases showing controllable temporal alignment.</p>
+                </div>
+              </div>
+
+              <div class="carousel-stage">
+                <button class="carousel-arrow carousel-arrow--side" type="button" data-carousel-prev>
+                  <span aria-hidden="true">←</span>
+                  <span class="sr-only">Previous slide</span>
+                </button>
+
+                <div class="carousel" data-carousel>
+                  <div class="carousel__track">
+                    <article class="video-card">
+                      <div class="video-shell">
+                        <video controls loop muted playsinline preload="none" data-autoplay>
+                          <source src="assets/videos/S1.mp4" type="video/mp4" />
+                        </video>
+                      </div>
+                      <p>Phase shift edits move the target motion earlier or later in time.</p>
+                    </article>
+
+                    <article class="video-card">
+                      <div class="video-shell">
+                        <video controls loop muted playsinline preload="none" data-autoplay>
+                          <source src="assets/videos/S2.mp4" type="video/mp4" />
+                        </video>
+                      </div>
+                      <p>Temporal alignment can be adjusted without sacrificing overall motion coherence.</p>
+                    </article>
+
+                    <article class="video-card">
+                      <div class="video-shell">
+                        <video controls loop muted playsinline preload="none" data-autoplay>
+                          <source src="assets/videos/S3.mp4" type="video/mp4" />
+                        </video>
+                      </div>
+                      <p>Phase control supports precise timing edits for local gestures and limb motions.</p>
+                    </article>
+
+                    <article class="video-card">
+                      <div class="video-shell">
+                        <video controls loop muted playsinline preload="none" data-autoplay>
+                          <source src="assets/videos/S4.mp4" type="video/mp4" />
+                        </video>
+                      </div>
+                      <p>Edited timing remains consistent with the text-conditioned motion context.</p>
+                    </article>
+                  </div>
+                </div>
+
+                <button class="carousel-arrow carousel-arrow--side" type="button" data-carousel-next>
+                  <span aria-hidden="true">→</span>
+                  <span class="sr-only">Next slide</span>
+                </button>
+              </div>
+              <div class="carousel-pagination" data-carousel-dots></div>
+            </section>
+
+            <section
+              class="featured-demo"
+              id="interactive-demo"
+              aria-labelledby="interactive-demo-heading"
+            >
+              <div class="featured-demo__header">
+                <h3 id="interactive-demo-heading">Interactive Editing Demo</h3>
+                <p>
+                  The demo illustrates the intended multi-round workflow: phase
+                  parameters are extracted from a reference or generated motion,
+                  users apply simple scalar edits to the target body part, and
+                  the updated phase manifold is re-injected to refine the next
+                  generation result.
+                </p>
+              </div>
+
+              <div class="video-shell video-shell--featured">
+                <video controls loop muted playsinline preload="none" data-autoplay>
+                  <source
+                    src="assets/videos/interactive_demo.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--alt" id="citation">
+        <div class="container narrow">
+          <div class="section-heading">
+            <p class="section-heading__kicker">Reference</p>
+            <h2>BibTeX / Citation</h2>
+          </div>
+
+          <div class="citation-card">
+            <button class="copy-button" id="copy-bibtex" type="button">
+              Copy BibTeX
+            </button>
+            <pre><code id="bibtex-block">@article{dai2026bodypartphase,
+  title     = {Controllable Text-to-Motion Generation via Modular Body-Part Phase Control},
+  author    = {Minyue Dai and Ke Fan and Anyi Rao and Jingbo Wang and Bo Dai},
+  journal   = {arXiv preprint},
+  year      = {2026}
+}</code></pre>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer__content">
+        <p>Project page for "Controllable Text-to-Motion Generation via Modular Body-Part Phase Control".</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
