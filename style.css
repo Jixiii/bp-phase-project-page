@@ -392,20 +392,6 @@ select {
   background: transparent;
 }
 
-.video-shell::after {
-  content: "Local video placeholder";
-  position: absolute;
-  right: 0.9rem;
-  bottom: 0.8rem;
-  padding: 0.28rem 0.55rem;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.88);
-  color: #4d4f4a;
-  font-size: 0.74rem;
-  font-weight: 600;
-  pointer-events: none;
-}
-
 .carousel-pagination {
   display: flex;
   justify-content: center;

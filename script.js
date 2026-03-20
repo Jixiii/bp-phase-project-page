@@ -169,32 +169,32 @@ function setupCarousels() {
 function setupSectionNav() {
   const dots = Array.from(document.querySelectorAll("[data-nav-target]"));
   const sections = dots
-    .map((dot) => document.getElementById(dot.dataset.navTarget))
+    .map((dot) => {
+      const section = document.getElementById(dot.dataset.navTarget);
+      return section ? { dot, section } : null;
+    })
     .filter(Boolean);
 
   if (dots.length === 0 || sections.length === 0) return;
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      const visibleEntries = entries
-        .filter((entry) => entry.isIntersecting)
-        .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+  function updateActiveDot() {
+    const markerY = window.scrollY + window.innerHeight * 0.35;
+    let activeId = sections[0].section.id;
 
-      if (visibleEntries.length === 0) return;
+    sections.forEach(({ section }) => {
+      if (markerY >= section.offsetTop) {
+        activeId = section.id;
+      }
+    });
 
-      const activeId = visibleEntries[0].target.id;
+    dots.forEach((dot) => {
+      dot.classList.toggle("is-active", dot.dataset.navTarget === activeId);
+    });
+  }
 
-      dots.forEach((dot) => {
-        dot.classList.toggle("is-active", dot.dataset.navTarget === activeId);
-      });
-    },
-    {
-      rootMargin: "-35% 0px -35% 0px",
-      threshold: [0.15, 0.35, 0.6],
-    }
-  );
-
-  sections.forEach((section) => observer.observe(section));
+  updateActiveDot();
+  window.addEventListener("scroll", updateActiveDot, { passive: true });
+  window.addEventListener("resize", updateActiveDot);
 }
 
 function setupVideoAutoplay() {
