@@ -49,6 +49,24 @@ function setupCopyBibtex() {
   });
 }
 
+function refreshVideoSources() {
+  const version = `${Date.now()}`;
+  const videos = Array.from(document.querySelectorAll("video"));
+
+  videos.forEach((video) => {
+    const sources = Array.from(video.querySelectorAll("source"));
+
+    sources.forEach((source) => {
+      const baseSrc =
+        source.dataset.baseSrc || source.getAttribute("src").split("?")[0];
+      source.dataset.baseSrc = baseSrc;
+      source.setAttribute("src", `${baseSrc}?v=${version}`);
+    });
+
+    video.load();
+  });
+}
+
 function setupCarousels() {
   const blocks = document.querySelectorAll(".carousel-block");
 
@@ -213,6 +231,7 @@ function setupVideoAutoplay() {
 
 document.addEventListener("DOMContentLoaded", () => {
   setupImageFallback();
+  refreshVideoSources();
   setupCopyBibtex();
   setupCarousels();
   setupSectionNav();
