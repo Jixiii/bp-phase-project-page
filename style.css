@@ -160,8 +160,16 @@ select {
   font-size: 1rem;
 }
 
+.hero__affiliations-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.2rem;
+}
+
 .hero__affiliations p {
   margin: 0.15rem 0;
+  white-space: nowrap;
 }
 
 .hero__actions {
@@ -537,6 +545,14 @@ select {
 
   .hero__content {
     padding: 2rem 1rem 1.7rem;
+  }
+
+  .hero__affiliations-row {
+    display: block;
+  }
+
+  .hero__affiliations p {
+    white-space: normal;
   }
 
   .carousel-block__header {
